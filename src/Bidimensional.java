@@ -3,65 +3,85 @@ import java.util.Scanner;
 public class Bidimensional {
     public static void main(String[] args) throws InterruptedException {
 
-        final int MAX_CASILLAS = 9; 
-        Scanner sc = new Scanner (System.in); 
+        final int MAX_CASILLAS = 9;
+        Scanner sc = new Scanner(System.in);
 
-        int contadorJugadas = 0; 
-        
-        char [] [] tableroJuego = new char[3][3];
+        int contadorJugadas = 0;
+
+        char[][] tableroJuego = new char[3][3];
 
         rellenarTableroInit(tableroJuego);
 
         do {
-            jugarJ1(tableroJuego);
+            jugarJ1(tableroJuego);  // Dado que dentro de este método llamamos al jugarJ2, no hace falta llamar a ambos métodos. Con llamar a uno, tendrán lugar los turnos de ambos jugadores 
             contadorJugadas++;
+            
         } while (contadorJugadas <= MAX_CASILLAS);
-
 
     }
 
-    public static void jugarJ1(char [] [] tablero) {
+    public static void jugarJ1(char[][] tablero) {
 
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Jugador 1 seleccionado");
 
-        System.out.println("Selecciona una fila: ");
-        int selectorFila = sc.nextInt() - 1 ;
-        System.out.println("Selecciona una columna: ");
-        int selectorColumna = sc.nextInt() - 1; 
+        int selectorFila;
+        int selectorColumna;
 
-        try {
-            tablero [selectorFila] [selectorColumna] = 'X';
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Casilla no válida. Pierdes el turno");
-        }
+        do {
+            System.out.println("Selecciona una fila: ");
+            selectorFila = sc.nextInt() - 1;
+            System.out.println("Selecciona una columna: ");
+            selectorColumna = sc.nextInt() - 1;
+
+            if (!esCasillaValida(tablero, selectorFila, selectorColumna)) {
+                System.out.println("Casilla no válida. Por favor, elige otra.");
+            }
+
+        } while (!esCasillaValida(tablero, selectorFila, selectorColumna));
+
+        tablero[selectorFila][selectorColumna] = 'X';
 
         mostrarTablero(tablero);
         jugarJ2(tablero);
 
     }
 
-    public static void jugarJ2(char [] [] tablero) {
+    public static void jugarJ2(char[][] tablero) {
 
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Jugador 2 seleccionado");
 
-        System.out.println("Selecciona una fila: ");
-        int selectorFila = sc.nextInt() - 1 ;
-        System.out.println("Selecciona una columna: ");
-        int selectorColumna = sc.nextInt() - 1; 
+        int selectorFila;
+        int selectorColumna;
 
-        try {
-            tablero [selectorFila] [selectorColumna] = 'O';
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Casilla no válida. Pierdes el turno");
-        }
+        do {
+            System.out.println("Selecciona una fila: ");
+            selectorFila = sc.nextInt() - 1;
+            System.out.println("Selecciona una columna: ");
+            selectorColumna = sc.nextInt() - 1;
+
+            if (!esCasillaValida(tablero, selectorFila, selectorColumna)) {
+                System.out.println("Casilla no válida. Por favor, elige otra.");
+            }
+
+        } while (!esCasillaValida(tablero, selectorFila, selectorColumna));
+
+        tablero[selectorFila][selectorColumna] = 'O';
 
         mostrarTablero(tablero);
         jugarJ1(tablero);
 
+    }
+
+    public static boolean esCasillaValida(char[][] tablero, int fila, int columna) {    // Este método verifica los valores que toman las celdas, y además revisa si están o no vacías
+        if (fila < 0 || fila >= tablero.length || columna < 0 || columna >= tablero[0].length) {
+            return false; // Fuera de los límites del tablero
+        }
+
+        return tablero[fila][columna] == '-'; // Devuelve el estado de la casilla (Si está o no ocupada) 
     }
 
     public static void rellenarTableroInit(char [] [] tablero) {
