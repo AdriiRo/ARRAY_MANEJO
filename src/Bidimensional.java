@@ -93,6 +93,18 @@ public class Bidimensional {
     }
 
     public static void mostrarTablero(char [] [] tablero) {
+
+        // Condición para que antes de mostrar el tablero determine si algún jugador ha ganado. (NO FUNCIONA)
+
+        // for (int i = 0; i < tablero.length; i++) {
+        //     for (int j = 0; j < tablero.length; j++) {
+        //         if(tablero [i] [j] != '-') {
+        //             System.out.println("El juego ha finalizado");
+        //             break; 
+        //         }
+        //     }
+        // }
+
         System.out.println();
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[i].length; j++) {
