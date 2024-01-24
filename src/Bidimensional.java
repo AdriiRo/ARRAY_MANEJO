@@ -113,5 +113,13 @@ public class Bidimensional {
             System.out.println("\n");
         }
     }
+
+    // Incompleto. Revisar solución de clase. 
+
+    public static void comprobarGanador(int fila, int columna, char [] [] tablero) {
+        if(tablero[fila][0] == tablero[fila][1] && tablero[fila][1] == tablero[fila][2] || tablero[0][columna] == tablero[1][columna] && tablero[1][columna] == tablero[2][columna]) {
+
+        }
+    } 
 }
 
